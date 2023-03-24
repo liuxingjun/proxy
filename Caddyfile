@@ -1,0 +1,13 @@
+{$DOMAIN:0.0.0.0:80} {
+	handle_path /google {
+		reverse_proxy https://www.google.com {
+			header_up Host {http.reverse_proxy.upstream.hostport}
+		}
+	}
+
+	handle_path /translate {
+		reverse_proxy https://translate.google.com {
+			header_up Host {http.reverse_proxy.upstream.hostport}
+		}
+	}
+}
