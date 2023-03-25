@@ -1,4 +1,9 @@
-{$DOMAIN:0.0.0.0:80} {
+{
+	{$DEBUG}
+}
+
+:80 {	
+	respond "caddy"
 	handle_path /google {
 		reverse_proxy https://www.google.com {
 			header_up Host {http.reverse_proxy.upstream.hostport}
