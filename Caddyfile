@@ -19,5 +19,18 @@
 			header_up Host {http.reverse_proxy.upstream.hostport}
 		}
 	}
+	handle_path /openai-docs {
+		rewrite * /docs{path}
+		reverse_proxy https://platform.openai.com {
+			header_up Host {http.reverse_proxy.upstream.hostport}
+		}
+	}
+
+	handle_path /openai-api/* {
+		reverse_proxy https://api.openai.com {
+			header_up Authorization "Bearer "{$OPENAI_API_KEY}
+			header_up Host {http.reverse_proxy.upstream.hostport}
+		}
+	}
 	respond "caddy"
 }
