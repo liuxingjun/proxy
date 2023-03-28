@@ -1,36 +1,31 @@
 {
 	{$DEBUG}
+	auto_https off
+	servers {
+		protocols h1 h2
+	}
 }
 
-:80 {
-	handle_path /google {
-		reverse_proxy https://www.google.com {
-			header_up Host {http.reverse_proxy.upstream.hostport}
-		}
+google.{$DOMAIN:localhost}:80 {
+	reverse_proxy https://www.google.com {
+		header_up Host {http.reverse_proxy.upstream.hostport}
 	}
-	handle /search* {
-		reverse_proxy /search* https://www.google.com {
-			header_up Host {http.reverse_proxy.upstream.hostport}
-		}
-	}
+}
 
-	handle_path /translate {
-		reverse_proxy https://translate.google.com {
-			header_up Host {http.reverse_proxy.upstream.hostport}
-		}
+translate.{$DOMAIN:localhost}:80 {
+	reverse_proxy https://translate.google.com {
+		header_up Host {http.reverse_proxy.upstream.hostport}
 	}
-	handle_path /openai-docs {
-		rewrite * /docs{path}
-		reverse_proxy https://platform.openai.com {
-			header_up Host {http.reverse_proxy.upstream.hostport}
-		}
-	}
+}
 
-	handle_path /openai-api/* {
-		reverse_proxy https://api.openai.com {
-			header_up Authorization "Bearer "{$OPENAI_API_KEY}
-			header_up Host {http.reverse_proxy.upstream.hostport}
-		}
+platform.openai.{$DOMAIN:localhost}:80 {
+	reverse_proxy https://platform.openai.com {
+		header_up Host {http.reverse_proxy.upstream.hostport}
 	}
-	respond "caddy"
+}
+api.openai.{$DOMAIN:localhost}:80 {
+	reverse_proxy https://api.openai.com {
+		header_up Authorization "Bearer {$OPENAI_API_KEY}"
+		header_up Host {http.reverse_proxy.upstream.hostport}
+	}
 }
