@@ -5,6 +5,9 @@
 		protocols h1 h2
 	}
 }
+{$DOMAIN:localhost}:80 {
+	respond "Hello, caddy!"
+}
 
 google.{$DOMAIN:localhost}:80 {
 	reverse_proxy https://www.google.com {
