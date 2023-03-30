@@ -5,7 +5,7 @@
 		protocols h1 h2
 	}
 }
-{$DOMAIN:localhost}:80 {
+0.0.0.0:80 {
 	respond "Hello, caddy!"
 }
 
