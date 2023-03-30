@@ -5,7 +5,7 @@
 		protocols h1 h2
 	}
 }
-0.0.0.0:80 {
+:80 {
 	respond "Hello, caddy!"
 }
 
