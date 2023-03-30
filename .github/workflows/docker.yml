@@ -3,6 +3,10 @@ name: Docker Image CI
 on:
   push:
     branches: ["main"]
+    paths:
+     - '.github/**'
+     - 'Dockerfile'
+     - 'Caddyfile'
   pull_request:
     branches: ["main"]
   workflow_dispatch:
