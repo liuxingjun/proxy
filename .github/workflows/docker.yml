@@ -36,10 +36,10 @@ jobs:
           version: 0.0.500
       - name: create fly.toml
         env:
-          FLY_APP: ${{ secrets.FLY_APP }}
-          CADDY_DOMAIN: ${{ secrets.CADDY_DOMAIN }}
+          FLY_APP: ${{ vars.FLY_APP }}
+          CADDY_DOMAIN: ${{ vars.CADDY_DOMAIN }}
           # CADDY_DEBUG: ${{ env.CADDY_DEBUG }}
-        run: echo "$FLY_APP";echo "--"; echo "${{ env.FLY_APP }}"; env;envsubst < fly.template.toml > fly.toml && cat fly.toml
+        run: env;envsubst < fly.template.toml > fly.toml && cat fly.toml
         
       - run: flyctl deploy
         env:
