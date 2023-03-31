@@ -39,7 +39,7 @@ jobs:
           FLY_APP: ${{ env.FLY_APP }}
           CADDY_DOMAIN: ${{ env.CADDY_DOMAIN }}
           # CADDY_DEBUG: ${{ env.CADDY_DEBUG }}
-        run: env;envsubst < fly.template.toml > fly.toml && cat fly.toml
+        run: echo $FLY_APP;echo "--"; echo ${{ env.FLY_APP }}; env;envsubst < fly.template.toml > fly.toml && cat fly.toml
         
       - run: flyctl deploy
         env:
