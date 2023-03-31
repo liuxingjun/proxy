@@ -10,7 +10,8 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "eamodio.gitlens"
+        "eamodio.gitlens",
+        "be5invis.toml"
       ],
       "settings": {
         "terminal.integrated.defaultProfile.linux": "zsh"

@@ -1,5 +1,5 @@
 {
-	{$DEBUG}
+	{$CADDY_DEBUG}
 	auto_https off
 	servers {
 		protocols h1 h2
@@ -9,24 +9,24 @@
 	respond "Hello, caddy!"
 }
 
-google.{$DOMAIN:localhost}:80 {
+google.{$CADDY_DOMAIN:localhost}:80 {
 	reverse_proxy https://www.google.com {
 		header_up Host {http.reverse_proxy.upstream.hostport}
 	}
 }
 
-translate.{$DOMAIN:localhost}:80 {
+translate.{$CADDY_DOMAIN:localhost}:80 {
 	reverse_proxy https://translate.google.com {
 		header_up Host {http.reverse_proxy.upstream.hostport}
 	}
 }
 
-platform.openai.{$DOMAIN:localhost}:80 {
+platform.openai.{$CADDY_DOMAIN:localhost}:80 {
 	reverse_proxy https://platform.openai.com {
 		header_up Host {http.reverse_proxy.upstream.hostport}
 	}
 }
-api.openai.{$DOMAIN:localhost}:80 {
+api.openai.{$CADDY_DOMAIN:localhost}:80 {
 	reverse_proxy https://api.openai.com {
 		header_up Authorization "Bearer {$OPENAI_API_KEY}"
 		header_up Host {http.reverse_proxy.upstream.hostport}
